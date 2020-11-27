@@ -17,3 +17,4 @@ artifacts:
     - web.py
     - appspec.yml
     - requirements
+    - test_app.py
