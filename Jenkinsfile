@@ -37,6 +37,6 @@ pipeline {
 }
 
 def notifystatus (String status, String msg, String subject) {
-    emailext body: 'BUILD_TRIGGER_BY', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
-    subject: 'Test', to: "navfarr15@gmail.com"
+    emailext body: msg, recipientProviders: [$class: 'RequesterRecipientProvider']], 
+    subject: 'subject', to: "navfarr15@gmail.com"
 }
