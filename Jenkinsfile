@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Build') { 
+        stage('build') {
             steps {
-                node ('master') {  
-                    BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
-                    echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
-                    
-                }
+                sh 'echo "Hello World"'
             }
+        }
+        stage('Build1') { 
+            def BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
+            echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
         }
     }
 }
