@@ -28,14 +28,15 @@ pipeline {
             script {
                 println 'STATUS: SUCCESSFUL'
                 subject = "[SUCCESS]"
-                msg = "Hi"
-                notifystatus('SUCCESS', msg, subject)
+                BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
+                msg = "${BUILD_TRIGGER_BY}"
+                notifyStatus('SUCCESS', msg, subject)
             }
         }
     }
 }
 
-def notifystatus (String status, String msg, String subject) {
-    emailext body: msg, recipientProviders: [$class: 'RequesterRecipientProvider'], 
+def notifyStatus (String status, String msg, String subject) {
+    attachlog: true, emailext body: msg, recipientProviders: [$class: 'RequesterRecipientProvider'], 
     subject: 'subject', to: "navfarr15@gmail.com"
 }
