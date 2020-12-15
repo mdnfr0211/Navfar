@@ -15,4 +15,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            emailext body: '${BUILD_TRIGGER_BY}', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+        }
+    }
 }
