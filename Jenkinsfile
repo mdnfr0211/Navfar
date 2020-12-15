@@ -16,8 +16,9 @@ pipeline {
                 }
             }
         }
+        def cause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+	echo "userName: ${cause.userName}"
 
     }
-    BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
-    echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
+   
 }
