@@ -16,9 +16,8 @@ pipeline {
                 }
             }
         }
-        def cause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-	echo "userName: ${cause.userName}"
 
     }
-   
+    def cause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
+    echo "userName: ${cause.userName}"
 }
