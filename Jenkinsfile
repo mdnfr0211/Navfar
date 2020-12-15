@@ -17,7 +17,7 @@ pipeline {
     }
     post {
         always {
-            emailext body: '${BUILD_TRIGGER_BY}', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+            emailext body: '${BUILD_TRIGGER_BY}', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: "navfarr15@gmail.com"
         }
     }
 }
