@@ -1,16 +1,24 @@
 pipeline {
     agent any
-    
     stages {
-        stage('Ok') {
+        stage('build') {
             steps {
-                echo "Ok"
+                sh 'echo "Hello World"'
             }
         }
-    }
-    post {
-        always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: "mohamednavfar.a@8kmiles.com"
+        stage('Build1') { 
+          steps {
+		BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
+          	echo "BUILD_TRIGGER_BY: ${BUILD_TRIGGER_BY}"
+	    }	
+        }   
+        stage('stage1') {
+            steps {
+                wrap([$class: 'BuildUser']) {
+                    echo "${BUILD_USER}"
+                    echo "${BUILD_USER_ID}"
+                }
+            }
         }
     }
 }
