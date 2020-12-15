@@ -20,7 +20,7 @@ pipeline {
         always {
             script {
             BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
-            emailext body: 'echo"${BUILD_TRIGGER_BY}"', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: "navfarr15@gmail.com"
+            emailext body: 'BUILD_TRIGGER_BY', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: "navfarr15@gmail.com"
             }
         }
     }
