@@ -19,9 +19,24 @@ pipeline {
     post {
         always {
             script {
-            BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
-            emailext body: 'BUILD_TRIGGER_BY', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: "navfarr15@gmail.com"
+                println '[WARNING] Initiating clean up'
+                cleanWs()
+
+            }
+        }
+        success {
+            script {
+                println 'STATUS: SUCCESSFUL'
+                subject = "[SUCCESS]"
+                BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
+                msg = "${BUILD_TRIGGER_BY}"
+                notifystatus('SUCCESS', msg, subject)
             }
         }
     }
+}
+
+def notifystatus (String status, String msg, String subject) {
+    emailext body: 'BUILD_TRIGGER_BY', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
+    subject: 'Test', to: "navfarr15@gmail.com"
 }
