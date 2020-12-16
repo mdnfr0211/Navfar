@@ -29,7 +29,7 @@ pipeline {
                 println 'STATUS: SUCCESSFUL'
                 subject = "[SUCCESS]"
                 BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
-                msg = "${BUILD_TRIGGER_BY} \n\nHi"
+                msg = "Build is success \n\n${BUILD_TRIGGER_BY}"
                 notifyStatus('SUCCESS', msg, subject)
             }
         }
