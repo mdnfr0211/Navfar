@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'echo "Hello World!"'
+                sh 'echo "Hello World"'
             }
         }
         stage('Build1') { 
@@ -28,8 +28,8 @@ pipeline {
             script {
                 println 'STATUS: SUCCESSFUL'
                 subject = "[SUCCESS]"
-                BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
-                msg = "${BUILD_TRIGGER_BY}"
+                BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription} / ${currentBuild.getBuildCauses()[0].userId}"
+                msg = "${BUILD_TRIGGER_BY} \n\nHi"
                 notifyStatus('SUCCESS', msg, subject)
             }
         }
