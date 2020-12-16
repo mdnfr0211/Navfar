@@ -28,5 +28,5 @@ pipeline {
 }
 
 def notifyStatus (String status, String msg, String subject) {
-     emailext attachLog: true, body: msg, subject: subject, to: "navfarr15@gmail.com","mohamednavfar.a@8kmiles.com"
+     emailext attachLog: true, body: msg, subject: subject, to: ["navfarr15@gmail.com","mohamednavfar.a@8kmiles.com"]
 }
