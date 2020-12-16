@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
+    }
     stages {
         stage('build') {
             steps {
@@ -19,7 +22,7 @@ pipeline {
             script {
                 println 'STATUS: SUCCESSFUL'
                 subject = "[SUCCESS]"
-                BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
+                
                 msg = "Build is success \n\n${BUILD_TRIGGER_BY}"
                 notifyStatus('SUCCESS', msg, subject)
             }
