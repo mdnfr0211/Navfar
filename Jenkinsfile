@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'echo "Hello World!"'
+                sh 'echo "Hello World"'
             }
         }
     }
@@ -31,5 +31,5 @@ pipeline {
 }
 
 def notifyStatus (String status, String msg, String subject) {
-     emailext attachLog: true, body: msg, subject: subject, recipientProviders: [developers(),upstreamDevelopers()]
+     emailext attachLog: true, body: msg, subject: subject, recipientProviders: [developers()]
 }
