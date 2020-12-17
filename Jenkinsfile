@@ -31,5 +31,5 @@ pipeline {
 }
 
 def notifyStatus (String status, String msg, String subject) {
-     emailext attachLog: true, body: msg, subject: subject, [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+     emailext attachLog: true, body: msg, subject: subject, recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
 }
