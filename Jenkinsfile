@@ -31,5 +31,5 @@ pipeline {
 }
 
 def notifyStatus (String status, String msg, String subject) {
-     emailext attachLog: true, body: msg, subject: subject, recipientProviders: [culprits()]
+     emailext attachLog: true, body: msg, subject: subject, recipientProviders: [developers()]
 }
