@@ -10,7 +10,13 @@ pipeline {
 		sh 'echo "Testing"'
             }
         }
-    }
+	stage("source code checkout"){
+            steps {
+                script {
+                    git branch: 'dev', credentialsId: 'cb964396-7c95-493d-8ec9-77ab17154232', url: 'https://github.com/mdnfr0211/Navfar.git'
+	    }
+	}	 	
+    }			
     post {
         always {
             script {
