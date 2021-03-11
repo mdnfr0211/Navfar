@@ -1,9 +1,9 @@
 pipeline {
     environment {
-        ecr-repo-url = 824158444038.dkr.ecr.ap-south-1.amazonaws.com
-        ecr-repo-name = test
-        region = ap-south-1
-        name = service
+        ecr-repo-url = "824158444038.dkr.ecr.ap-south-1.amazonaws.com"
+        ecr-repo-name = "test"
+        region = "ap-south-1"
+        name = "service"
     }
     stages {
         stage("cleaning workspace"){
