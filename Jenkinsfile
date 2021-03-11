@@ -24,8 +24,8 @@ pipeline {
                 script {
                     sh'''
                     aws ecr get-login-password --region ${region} | sudo docker login --username AWS --password-stdin $ecr_repo_url
-                    docker build -t $name .
-                    docker tag $name ${ecr_repo_url}/${ecr_repo_name}:v_$BUILD_NUMBER
+                    sudo docker build -t $name .
+                    sudo docker tag $name ${ecr_repo_url}/${ecr_repo_name}:v_$BUILD_NUMBER
 
                     set +e
                     Image_List="$(aws ecr describe-images --repository-name test --image-ids imageTag=v_$BUILD_NUMBER 2> /dev/null 1> /dev/null)"
@@ -37,8 +37,8 @@ pipeline {
                                         echo "v_$BUILD_NUMBER already exist in $ecr_repo_name"
                                     else
                                         echo "push"
-                                        docker push 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
-                                        docker rmi 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
+                                        sudo docker push 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
+                                        sudo docker rmi 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
                                     fi
 
                     '''
