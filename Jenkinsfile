@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
         ecr_repo_url = "824158444038.dkr.ecr.ap-south-1.amazonaws.com"
         ecr_repo_name = "test"
