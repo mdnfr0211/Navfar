@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     sh'''
-                    aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin $ecr_repo_url
+                    aws ecr get-login-password --region ${region} | sudo docker login --username AWS --password-stdin $ecr_repo_url
                     docker build -t $name .
                     docker tag $name ${ecr_repo_url}/${ecr_repo_name}:v_$BUILD_NUMBER
 
