@@ -1,7 +1,7 @@
 pipeline {
     environment {
-        ecr-repo-url = "824158444038.dkr.ecr.ap-south-1.amazonaws.com"
-        ecr-repo-name = "test"
+        ecr_repo_url = "824158444038.dkr.ecr.ap-south-1.amazonaws.com"
+        ecr_repo_name = "test"
         region = "ap-south-1"
         name = "service"
     }
@@ -25,7 +25,7 @@ pipeline {
                     sh'''
                     aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin $ecr-repo-url
                     docker build -t $name .
-                    docker tag $name ${ecr-repo-url}/${ecr-repo-name}:v_$BUILD_NUMBER
+                    docker tag $name ${ecr_repo_url}/${ecr_repo_name}:v_$BUILD_NUMBER
 
                     set +e
                     Image_List="$(aws ecr describe-images --repository-name test --image-ids imageTag=v_$BUILD_NUMBER 2> /dev/null 1> /dev/null)"
@@ -34,7 +34,7 @@ pipeline {
                     echo $status
 
                     if [[ "$status" == 0 ]]; then
-                                        echo "v_$BUILD_NUMBER already exist in $ecr-repo-name"
+                                        echo "v_$BUILD_NUMBER already exist in $ecr_repo_name"
                                     else
                                         echo "push"
                                         docker push 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
