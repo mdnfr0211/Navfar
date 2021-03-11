@@ -1,42 +1,49 @@
 pipeline {
-    agent any
     environment {
-        BUILD_TRIGGER_BY = "${currentBuild.getBuildCauses()[0].shortDescription}"
+        ecr-repo-url = 824158444038.dkr.ecr.ap-south-1.amazonaws.com
+        ecr-repo-name = test
+        region = ap-south-1
+        name = service
     }
     stages {
-        stage('build') {
-            steps {
-                sh 'echo "Hello World!"'
-		sh 'echo "Testing"'
+        stage("cleaning workspace"){
+            steps{
+                cleanWs()
             }
         }
-	stage("source code checkout"){
+        stage ("SRC"){
             steps {
                 script {
-                    git branch: 'dev', credentialsId: 'cb964396-7c95-493d-8ec9-77ab17154232', url: 'https://github.com/mdnfr0211/Navfar.git'
-	    }
-	}	 	
-    }			
-    post {
-        always {
-            script {
-                println '[WARNING] Initiating clean up'
-                cleanWs()
-
+                    git branch: 'Docker', credentialsId: '45e91bdf-9fbf-468b-a423-1a2d4876f4ae', url: 'https://github.com/mdnfr0211/Navfar.git'
+                }
             }
         }
-        success {
-            script {
-                println 'STATUS: SUCCESSFUL'
-                subject = "[SUCCESS]"
-                
-                msg = "Build is success \n\n${BUILD_TRIGGER_BY}"
-                notifyStatus('SUCCESS', msg, subject)
+        }
+        stage("Build"){
+            steps {
+                script {
+                    sh'''
+                    aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin $ecr-repo-url
+                    docker build -t $name .
+                    docker tag $name ${ecr-repo-url}/${ecr-repo-name}:v_$BUILD_NUMBER
+
+                    set +e
+                    Image_List="$(aws ecr describe-images --repository-name test --image-ids imageTag=v_$BUILD_NUMBER 2> /dev/null 1> /dev/null)"
+                    status=$?
+                    set -e
+                    echo $status
+
+                    if [[ "$status" == 0 ]]; then
+                                        echo "v_$BUILD_NUMBER already exist in $ecr-repo-name"
+                                    else
+                                        echo "push"
+                                        docker push 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
+                                        docker rmi 824158444038.dkr.ecr.ap-south-1.amazonaws.com/test:v_$BUILD_NUMBER
+                                    fi
+
+                    '''
+                }
             }
         }
     }
-}
-
-def notifyStatus (String status, String msg, String subject) {
-     emailext attachLog: true, body: msg, subject: subject, recipientProviders: [developers()]
 }
