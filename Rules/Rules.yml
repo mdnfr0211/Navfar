@@ -1,0 +1,14 @@
+CreateUser
+CreateElasticsearchDomain
+CreateNodegroup
+CreateDBInstance
+CreateCacheCluster
+RunInstances
+StartSession
+DeleteUser
+DeleteElasticsearchDomain
+DeleteNodegroup
+DeleteDBInstance
+DeleteCacheCluster
+TerminateInstances
+TerminateSession
