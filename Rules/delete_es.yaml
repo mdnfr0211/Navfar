@@ -1,4 +1,4 @@
-name: Delete RDS
+name: Delete ES
 type: frequency
 index: cwl*
 num_events: 1
