@@ -17,10 +17,8 @@ COPY config.yaml elastalert_supervisord.conf /opt/elastalert/
 COPY rules/* ./elastalert-rules/
 COPY entrypoint.sh /opt/elastalert/
 
-#RUN chmod +x /opt/elastalert/entrypoint.sh
-#ENTRYPOINT ["/opt/elastalert/entrypoint.sh"]
+COPY elastalert_supervisord.conf /usr/local/etc/supervisord.conf
 
-COPY elastalert_supervisord.conf /etc/supervisor/conf.d/
 RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
 
